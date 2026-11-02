@@ -1,0 +1,444 @@
+{
+  "products": [
+    {
+      "id": "p-1793604921015",
+      "slug": "skin-serum-232",
+      "name": "Skin serum",
+      "brand": "Hadi Mart",
+      "categoryId": "c4",
+      "price": 2000,
+      "salePrice": 1599,
+      "stock": 20,
+      "images": [
+        "blob:http://localhost:3000/5022442b-299a-4bdc-a88c-7e55c4b3a646",
+        "blob:http://localhost:3000/5022442b-299a-4bdc-a88c-7e55c4b3a646"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Best for all types of skin ",
+      "createdAt": "2026-11-02T07:35:21.015Z"
+    },
+    {
+      "id": "p-1793604830798",
+      "slug": "beauty-kit-479",
+      "name": "Beauty kit",
+      "brand": "Hadi Mart",
+      "categoryId": "c4",
+      "price": 8000,
+      "salePrice": 5000,
+      "stock": 20,
+      "images": [
+        "/uploads/PROD-HOLDER-JAPAN-SKINCARE1_1793604797552.webp",
+        "/uploads/PROD-HOLDER-JAPAN-SKINCARE1_1793604797552.webp"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "This Beauty kit has Facewash , Lotion , shampoo etc",
+      "createdAt": "2026-11-02T07:33:50.798Z"
+    },
+    {
+      "id": "p-1793603890091",
+      "slug": "facewash-770",
+      "name": "FaceWash ",
+      "brand": "Hadi Mart",
+      "categoryId": "c4",
+      "price": 4000,
+      "salePrice": 2999,
+      "stock": 20,
+      "images": [
+        "/uploads/missanonymissm-skincare-471732_1793603862841.jpg",
+        "/uploads/missanonymissm-skincare-471732_1793603862841.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Best face in hadiMart that is used for All types of Skin\n",
+      "createdAt": "2026-11-02T07:18:10.091Z"
+    },
+    {
+      "id": "p-1793603782373",
+      "slug": "dryskin-lotion-838",
+      "name": "Dryskin-Lotion",
+      "brand": "Hadi Mart",
+      "categoryId": "c4",
+      "price": 2000,
+      "salePrice": 1999,
+      "stock": 20,
+      "images": [
+        "/uploads/javaistan-ai-generated-8955575_1793603743784.jpg",
+        "/uploads/javaistan-ai-generated-8955575_1793603743784.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "This is For winter Season that Prevent dry skin ",
+      "createdAt": "2026-11-02T07:16:22.374Z"
+    },
+    {
+      "id": "p-1793603586888",
+      "slug": "fitness-dumbell-173",
+      "name": "Fitness Dumbell",
+      "brand": "Hadi Mart",
+      "categoryId": "c6",
+      "price": 10000,
+      "salePrice": 9999,
+      "stock": 20,
+      "images": [
+        "/uploads/stevepb-dumbbells-2465478_1920_1793603567649.jpg",
+        "/uploads/stevepb-dumbbells-2465478_1920_1793603567649.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Keep Fit with These Dumbell",
+      "createdAt": "2026-11-02T07:13:06.888Z"
+    },
+    {
+      "id": "p-1793603458014",
+      "slug": "cricket-bat-860",
+      "name": "Cricket Bat",
+      "brand": "Hadi Mart",
+      "categoryId": "c6",
+      "price": 15000,
+      "salePrice": 13000,
+      "stock": 20,
+      "images": [
+        "/uploads/yogendras31-cricket-5348883_19_1793603397655.jpg",
+        "/uploads/yogendras31-cricket-5348883_19_1793603397655.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Cricet that hit the from outrside the Boundry",
+      "createdAt": "2026-11-02T07:10:58.014Z"
+    },
+    {
+      "id": "p-1793599423636",
+      "slug": "tennis-ball-892",
+      "name": "Tennis Ball",
+      "brand": "Hadi Mart",
+      "categoryId": "c6",
+      "price": 3000,
+      "salePrice": 2000,
+      "stock": 20,
+      "images": [
+        "/uploads/bessi-tennis-1381230_1920_1793599401445.jpg",
+        "/uploads/bessi-tennis-1381230_1920_1793599401445.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "This is high Quality Tennis Ball ",
+      "createdAt": "2026-11-02T06:03:43.636Z"
+    },
+    {
+      "id": "p-1793599345715",
+      "slug": "high-quality-football-535",
+      "name": "High Quality Football",
+      "brand": "Hadi Mart",
+      "categoryId": "c6",
+      "price": 6000,
+      "salePrice": 5500,
+      "stock": 22,
+      "images": [
+        "/uploads/stux-football-1419954_1920_1793599322765.jpg",
+        "/uploads/stux-football-1419954_1920_1793599322765.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "This is High Quality Football For your Foot",
+      "createdAt": "2026-11-02T06:02:25.715Z"
+    },
+    {
+      "id": "p-1793599082501",
+      "slug": "fruit-pot-632",
+      "name": "Fruit-Pot",
+      "brand": "Hadi Mart",
+      "categoryId": "c3",
+      "price": 3000,
+      "salePrice": 2599,
+      "stock": 14,
+      "images": [
+        "/uploads/jillwellington-apples-2906457__1793599057408.jpg",
+        "/uploads/jillwellington-apples-2906457__1793599057408.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Beautiful Fruit port don,t miss to Buy it  ",
+      "createdAt": "2026-11-02T05:58:02.501Z"
+    },
+    {
+      "id": "p-1793597232096",
+      "slug": "pots-210",
+      "name": "Pots",
+      "brand": "Hadi Mart",
+      "categoryId": "c3",
+      "price": 5000,
+      "salePrice": 4599,
+      "stock": 26,
+      "images": [
+        "/uploads/gom_su_cuong_duyen-vases-10211_1793597204045.jpg",
+        "/uploads/gom_su_cuong_duyen-vases-10211_1793597204045.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Beautifull Coupole pots tha can Look attractive Your Home",
+      "createdAt": "2026-11-02T05:27:12.096Z"
+    },
+    {
+      "id": "p-1793597138180",
+      "slug": "arti-flower-366",
+      "name": "Arti-Flower",
+      "brand": "Hadi Mart",
+      "categoryId": "c3",
+      "price": 1400,
+      "salePrice": 1299,
+      "stock": 9,
+      "images": [
+        "/uploads/stocksnap-white-2563976_1920_1793597100934.jpg",
+        "/uploads/stocksnap-white-2563976_1920_1793597100934.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "Transform Your Home Into Beauty , Keep clean shiny and more Attractive ",
+      "createdAt": "2026-11-02T05:25:38.180Z"
+    },
+    {
+      "id": "p-1793551105818",
+      "slug": "flowers-438",
+      "name": "Flowers",
+      "brand": "Hadi Mart",
+      "categoryId": "c3",
+      "price": 1000,
+      "salePrice": 899,
+      "stock": 4,
+      "images": [
+        "/uploads/milivigerova-pots-716579_1920_1793551102662.jpg",
+        "/uploads/milivigerova-pots-716579_1920_1793551102662.jpg"
+      ],
+      "rating": 5,
+      "reviewCount": 0,
+      "sold": 0,
+      "description": "jksdhfhjksadlfhkjsdhfhhfjklsdkdfiasdfiuyierruweproidfhklajsdhfasdhfasdhfjka",
+      "createdAt": "2026-11-01T16:38:25.818Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-MVYYB412",
+      "userId": "basit@gnail.com",
+      "items": [
+        {
+          "productId": "p-1793603782373",
+          "qty": 1,
+          "price": 1999
+        }
+      ],
+      "total": 2199,
+      "status": "pending",
+      "payment": "COD",
+      "address": {
+        "name": "hadi",
+        "phone": "0063782678367",
+        "street": "street 123",
+        "city": "islamabad"
+      },
+      "createdAt": "2026-11-02T07:42:17.894Z"
+    },
+    {
+      "id": "ord-MVYY9TM8",
+      "userId": "basit@gnail.com",
+      "items": [
+        {
+          "productId": "p-1793599345715",
+          "qty": 1,
+          "price": 5500
+        },
+        {
+          "productId": "p-1793604830798",
+          "qty": 1,
+          "price": 5000
+        }
+      ],
+      "total": 10500,
+      "status": "processing",
+      "payment": "COD",
+      "address": {
+        "name": "khan",
+        "phone": "03368222900",
+        "street": "ruiqweyr737",
+        "city": "peshawar"
+      },
+      "createdAt": "2026-11-02T07:41:17.744Z"
+    },
+    {
+      "id": "ord-MVXF4Y3H",
+      "userId": "guest",
+      "items": [
+        {
+          "productId": "p-1793447334459",
+          "qty": 2,
+          "price": 4000
+        }
+      ],
+      "total": 8000,
+      "status": "delivered",
+      "payment": "Easypaisa",
+      "address": {
+        "name": "khan",
+        "phone": "0004523423765647",
+        "street": "ruiqweyr737",
+        "city": "peshawar"
+      },
+      "createdAt": "2026-11-01T05:57:51.389Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "u-1793547896336-m6cl",
+      "name": "Khan",
+      "email": "basit@gnail.com",
+      "password": "khan12345",
+      "avatar": "https://ui-avatars.com/api/?name=Khan&background=2A4434&color=fff&size=128",
+      "role": "customer",
+      "createdAt": "2026-11-01T15:44:56.336Z"
+    },
+    {
+      "id": "u-1793529822323",
+      "name": "Abdul hadiii",
+      "email": "abdulhadi@gmail.com",
+      "password": "Abdulhadi1234",
+      "avatar": "/uploads/Screenshot_2026-10-04_092500_1793529799300.png",
+      "role": "customer",
+      "createdAt": "2026-11-01T10:43:42.323Z",
+      "phone": "",
+      "address": "",
+      "city": ""
+    },
+    {
+      "id": "u-1793528789230",
+      "name": "basitbangash8899",
+      "email": "basitbangash8899@gmail.com",
+      "role": "customer",
+      "avatar": "https://ui-avatars.com/api/?name=basitbangash8899&background=0D8ABC&color=fff&size=128",
+      "createdAt": "2026-11-01T10:26:29.230Z"
+    },
+    {
+      "id": "u-1793528730379",
+      "name": "Hadi",
+      "email": "Hadikhan@gmail.com",
+      "role": "customer",
+      "createdAt": "2026-11-01T10:25:30.379Z"
+    },
+    {
+      "id": "u-1793528567242",
+      "name": "Muhammad Hadi",
+      "email": "m.hadi@gmail.com",
+      "role": "customer",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+      "createdAt": "2026-11-01T10:22:47.242Z"
+    },
+    {
+      "id": "u-1793528480848",
+      "name": "Basit",
+      "email": "Basit@gmail.com",
+      "role": "customer",
+      "createdAt": "2026-11-01T10:21:20.848Z",
+      "avatar": "/uploads/Screenshot_2026-10-04_092500_1793528480304.png"
+    },
+    {
+      "id": "u-admin",
+      "name": "Hadi Admin",
+      "email": "admin@hadimart.pk",
+      "role": "admin",
+      "createdAt": "2026-10-31T00:00:00.000Z"
+    }
+  ],
+  "messages": [
+    {
+      "name": "Basit",
+      "email": "weieuwu@gmail.com",
+      "phone": "00324782364823",
+      "subject": "jdhfkjsda",
+      "message": "asdjfjklasdhfasdhfasdjkfjf",
+      "id": "msg-1793515331389-uxgi3",
+      "createdAt": "2026-11-01T06:42:11.389Z",
+      "read": true
+    }
+  ],
+  "reviews": [
+    {
+      "productId": "p-1793447334459",
+      "productName": "test2",
+      "author": "Ahmed Ali",
+      "rating": 5,
+      "body": "Excellent product quality, fast delivery!",
+      "status": "approved",
+      "id": "rev-1793512503756-1mz0",
+      "createdAt": "2026-11-01T05:55:03.756Z"
+    },
+    {
+      "productId": "p-1793447334459",
+      "productName": "test2",
+      "author": "nsad as",
+      "rating": 5,
+      "body": "jhaskdjhasjd",
+      "status": "approved",
+      "id": "rev-1793512467449-m8sm",
+      "createdAt": "2026-11-01T05:54:27.449Z"
+    },
+    {
+      "productId": "p-1793447294286",
+      "productName": "Test",
+      "author": "sdjfh",
+      "rating": 5,
+      "body": "sdbnfasdjklhfjkasdjhfklasd",
+      "status": "approved",
+      "id": "rev-1793512392729-mqui",
+      "createdAt": "2026-11-01T05:53:12.729Z"
+    },
+    {
+      "productId": "p-1793447334459",
+      "productName": "test2",
+      "author": "kann",
+      "rating": 5,
+      "body": "best one sdjhfjisdhf;jasdjhf",
+      "status": "approved",
+      "id": "rev-1793512356399-tdbc",
+      "createdAt": "2026-11-01T05:52:36.399Z"
+    },
+    {
+      "productId": "p-1793447294286",
+      "productName": "Test",
+      "author": "basity",
+      "rating": 5,
+      "body": "ajhewilhrilweahruiawehlriqweljhaweklhr",
+      "status": "approved",
+      "id": "rev-1793512262121-djn9",
+      "createdAt": "2026-11-01T05:51:02.121Z"
+    }
+  ],
+  "newsletterSubscribers": [
+    {
+      "id": "nl-1793550362245-fmby4",
+      "email": "mohaz33555@gmail.com",
+      "subscribedAt": "2026-11-01T16:26:02.245Z"
+    },
+    {
+      "id": "nl-1793547546541-fhm33",
+      "email": "xyz73128@gmail.com",
+      "subscribedAt": "2026-11-01T15:39:06.541Z"
+    },
+    {
+      "id": "nl-1793547437100-hrc4o",
+      "email": "basitbangash8899@gmail.com",
+      "subscribedAt": "2026-11-01T15:37:17.100Z"
+    }
+  ]
+}

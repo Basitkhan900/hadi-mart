@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+
+  .dark body {
+    @apply bg-[#0a0f0d] text-[#f0f2ee];
+  }
+
+  * {
+    @apply border-ink/10;
+  }
+
+  ::selection {
+    @apply bg-emerald text-white;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-ink/20;
+  }
+}
+
+@layer components {
+  .skeleton {
+    @apply animate-pulse rounded-2xl bg-black/5 dark:bg-white/10;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 font-semibold text-white transition-all hover:bg-ink/80 active:scale-95 dark:bg-white dark:text-ink;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-ink/20 px-6 py-3 font-semibold transition-all hover:bg-ink/5 active:scale-95;
+  }
+
+  .btn-emerald {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-emerald px-6 py-3 font-semibold text-white transition-all hover:bg-emerald-dark active:scale-95;
+  }
+
+  .card {
+    @apply rounded-3xl border bg-white/60 p-6 shadow-sm backdrop-blur dark:bg-white/5;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border bg-transparent px-4 py-3 text-sm outline-none ring-0 transition focus:border-emerald focus:ring-2 focus:ring-emerald/20;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
