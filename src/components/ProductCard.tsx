@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Heart, Star, ShoppingBag, Check } from "lucide-react";
+import { motion } from "framer-motion";
 import type { Product } from "@/lib/types";
 import { pkr } from "@/lib/types";
 import { useCart, useWishlist } from "@/lib/store";
@@ -28,10 +29,14 @@ export default function ProductCard({ p, className = "" }: Props) {
   };
 
   return (
-    <div
-      className={`group relative flex flex-col justify-between rounded-2xl border border-stone-200/90 bg-white p-2.5 sm:p-3 shadow-xs transition-all duration-300 hover:border-[#8FA683] hover:shadow-lg dark:border-stone-800 dark:bg-[#152019] ${className}`}
+    <motion.div
+      className={`group relative flex flex-col justify-between rounded-2xl border border-stone-200/90 bg-white p-2.5 sm:p-3 shadow-xs hover:border-[#8FA683] hover:shadow-xl dark:border-stone-800 dark:bg-[#152019] ${className}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      whileHover={{ y: -6, transition: { type: "spring", stiffness: 320, damping: 22 } }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
     >
       <div>
         {/* Product Image Frame */}
@@ -40,16 +45,20 @@ export default function ProductCard({ p, className = "" }: Props) {
             <img
               src={p.images[hover ? 1 : 0]}
               alt={p.name}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-106"
+              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
             />
           </Link>
 
           {/* Badges */}
           <div className="absolute left-2.5 top-2.5 flex flex-col gap-1 z-10">
             {p.salePrice && (
-              <span className="rounded-full bg-[#B84232] px-2 py-0.5 text-[10px] sm:text-[11px] font-bold text-white shadow-xs">
+              <motion.span
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="rounded-full bg-[#B84232] px-2 py-0.5 text-[10px] sm:text-[11px] font-bold text-white shadow-xs"
+              >
                 -{discount}%
-              </span>
+              </motion.span>
             )}
             {p.stock <= 5 && p.stock > 0 && (
               <span className="rounded-full bg-[#D97706] px-2 py-0.5 text-[10px] font-semibold text-white shadow-xs">
@@ -64,27 +73,33 @@ export default function ProductCard({ p, className = "" }: Props) {
           </div>
 
           {/* Wishlist Heart */}
-          <button
+          <motion.button
             type="button"
             aria-label={liked ? "Remove from wishlist" : "Add to wishlist"}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.85 }}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               toggle(p.id);
             }}
-            className="absolute right-2.5 top-2.5 grid h-8 w-8 place-items-center rounded-full bg-white/90 shadow-xs backdrop-blur transition hover:scale-110 active:scale-95 dark:bg-stone-900/90 z-10"
+            className="absolute right-2.5 top-2.5 grid h-8 w-8 place-items-center rounded-full bg-white/90 shadow-xs backdrop-blur transition dark:bg-stone-900/90 z-10"
           >
             <Heart
               size={15}
-              className={liked ? "fill-rose-500 text-rose-500" : "text-stone-400 hover:text-stone-700 dark:text-stone-300"}
+              className={`transition-colors duration-200 ${
+                liked ? "fill-rose-500 text-rose-500" : "text-stone-400 hover:text-stone-700 dark:text-stone-300"
+              }`}
             />
-          </button>
+          </motion.button>
 
           {/* Quick Add overlay button */}
-          <button
+          <motion.button
             type="button"
             disabled={p.stock === 0}
             onClick={handleQuickAdd}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.96 }}
             className={`absolute inset-x-2.5 bottom-2.5 flex items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold shadow-md transition-all duration-300 z-10
               ${justAdded ? "bg-[#2A4434] text-white" : "bg-white/95 text-[#2A4434] hover:bg-[#2A4434] hover:text-white dark:bg-[#1A261F] dark:text-[#A4B896] dark:hover:bg-[#A4B896] dark:hover:text-[#121915]"}
               ${hover ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}
@@ -93,14 +108,14 @@ export default function ProductCard({ p, className = "" }: Props) {
           >
             {justAdded ? (
               <>
-                <Check size={14} /> Added
+                <Check size={14} className="animate-bounce" /> Added
               </>
             ) : (
               <>
                 <ShoppingBag size={13} /> {p.stock === 0 ? "Out of Stock" : "Quick Add"}
               </>
             )}
-          </button>
+          </motion.button>
         </div>
 
         {/* Product Details */}
@@ -142,6 +157,6 @@ export default function ProductCard({ p, className = "" }: Props) {
         </div>
         <span className="text-[10px] font-medium text-stone-400">{p.sold} sold</span>
       </div>
-    </div>
+    </motion.div>
   );
 }
