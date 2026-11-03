@@ -4,7 +4,8 @@ import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { categories } from "@/lib/db";
 import { useCatalog } from "@/lib/store";
-import { Zap, ArrowLeft, SlidersHorizontal, Sparkles } from "lucide-react";
+import { Zap, ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Countdown() {
   const [t, setT] = useState(5 * 3600 + 42 * 60 + 18);
@@ -69,17 +70,24 @@ export default function DealsPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-6 space-y-8">
       {/* Breadcrumb & Navigation */}
       <div className="flex items-center justify-between">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2 text-xs font-semibold text-stone-700 shadow-xs hover:bg-stone-50 dark:border-stone-800 dark:bg-[#152019] dark:text-stone-300 transition"
-        >
-          <ArrowLeft size={14} /> Back to Home
-        </Link>
+        <motion.div whileHover={{ x: -3 }} whileTap={{ scale: 0.95 }}>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2 text-xs font-semibold text-stone-700 shadow-xs hover:bg-stone-50 dark:border-stone-800 dark:bg-[#152019] dark:text-stone-300 transition"
+          >
+            <ArrowLeft size={14} /> Back to Home
+          </Link>
+        </motion.div>
         <span className="text-xs text-stone-500 font-medium">Limited Time Promotions</span>
       </div>
 
       {/* Banner */}
-      <div className="rounded-3xl border border-[#D5E1CD] bg-gradient-to-r from-[#243528] via-[#2F4634] to-[#1E3022] p-6 sm:p-10 text-white shadow-lg relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="rounded-3xl border border-[#D5E1CD] bg-gradient-to-r from-[#243528] via-[#2F4634] to-[#1E3022] p-6 sm:p-10 text-white shadow-lg relative overflow-hidden"
+      >
         <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#EAD098]/20 px-3 py-1 text-xs font-bold text-[#EAD098] border border-[#EAD098]/30">
@@ -94,18 +102,20 @@ export default function DealsPage() {
           </div>
 
           <div className="rounded-2xl bg-black/30 backdrop-blur-xs p-4 sm:p-5 border border-white/10 space-y-2">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-[#EAD098]">Promotion Ends In</p>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-[#EAD098]">
+              Promotion Ends In
+            </p>
             <Countdown />
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Filter & Sorting Controls */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-stone-200 pb-4 dark:border-stone-800">
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setSelectedCat("")}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition ${
+            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition cursor-pointer ${
               !selectedCat
                 ? "bg-[#2A4434] text-white dark:bg-[#A4B896] dark:text-[#121915]"
                 : "border border-stone-200 bg-white text-stone-600 hover:bg-stone-50 dark:border-stone-800 dark:bg-[#141E18] dark:text-stone-300"
@@ -120,7 +130,7 @@ export default function DealsPage() {
               <button
                 key={c.id}
                 onClick={() => setSelectedCat(c.id)}
-                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition flex items-center gap-1.5 ${
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer ${
                   selectedCat === c.id
                     ? "bg-[#2A4434] text-white dark:bg-[#A4B896] dark:text-[#121915]"
                     : "border border-stone-200 bg-white text-stone-600 hover:bg-stone-50 dark:border-stone-800 dark:bg-[#141E18] dark:text-stone-300"
@@ -148,9 +158,15 @@ export default function DealsPage() {
 
       {/* Deals Products Grid */}
       {deals.length === 0 ? (
-        <div className="rounded-3xl border border-stone-200 p-12 text-center text-stone-500 dark:border-stone-800 dark:bg-[#141E18]">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="rounded-3xl border border-stone-200 p-12 text-center text-stone-500 dark:border-stone-800 dark:bg-[#141E18]"
+        >
           <Zap size={40} className="mx-auto mb-3 opacity-30 text-amber-500" />
-          <h3 className="font-bold text-base text-stone-800 dark:text-stone-200">No Flash Deals at this Moment</h3>
+          <h3 className="font-bold text-base text-stone-800 dark:text-stone-200">
+            No Flash Deals at this Moment
+          </h3>
           <p className="text-xs text-stone-400 mt-1 max-w-sm mx-auto">
             You can add sale prices to products from the Admin Dashboard, or explore our full catalog.
           </p>
@@ -160,15 +176,19 @@ export default function DealsPage() {
           >
             Explore Complete Shop
           </Link>
-        </div>
+        </motion.div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {deals.map((p) => (
-            <ProductCard key={p.id} p={p} />
-          ))}
-        </div>
+        <motion.div
+          layout
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
+          <AnimatePresence>
+            {deals.map((p) => (
+              <ProductCard key={p.id} p={p} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
       )}
     </div>
   );
 }
-

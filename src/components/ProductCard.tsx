@@ -87,9 +87,8 @@ export default function ProductCard({ p, className = "" }: Props) {
           >
             <Heart
               size={15}
-              className={`transition-colors duration-200 ${
-                liked ? "fill-rose-500 text-rose-500" : "text-stone-400 hover:text-stone-700 dark:text-stone-300"
-              }`}
+              className={`transition-colors duration-200 ${liked ? "fill-rose-500 text-rose-500" : "text-stone-400 hover:text-stone-700 dark:text-stone-300"
+                }`}
             />
           </motion.button>
 

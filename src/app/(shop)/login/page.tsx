@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/store";
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight, X, Check, Key, ExternalLink, AlertCircle, UserPlus, LogIn } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Mode = "login" | "signup";
 
@@ -247,7 +248,12 @@ function LoginForm() {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4 py-16">
-      <div className="w-full max-w-md">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-md"
+      >
         {/* Card */}
         <div className="card space-y-6 bg-white dark:bg-[#141E18] border border-stone-200 dark:border-stone-800 shadow-xl rounded-3xl p-6 sm:p-8">
           {/* Logo */}
@@ -483,7 +489,7 @@ function LoginForm() {
             Admin Sign In
           </Link>
         </p>
-      </div>
+      </motion.div>
 
       {/* ─── GOOGLE CLIENT ID SETUP MODAL ─── */}
       {showSetupModal && (

@@ -18,6 +18,7 @@ import {
   Shield,
 } from "lucide-react";
 import { useAuth, useOrders, useWishlist } from "@/lib/store";
+import { motion } from "framer-motion";
 
 export default function AccountProfilePage() {
   const router = useRouter();
@@ -176,7 +177,12 @@ export default function AccountProfilePage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 md:px-6 space-y-8">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="mx-auto max-w-5xl px-4 py-10 md:px-6 space-y-8"
+    >
       {/* ─── Profile Header Banner ─── */}
       <div className="rounded-3xl border border-[#D5E1CD] bg-gradient-to-r from-[#243528] via-[#2F4634] to-[#1E3022] p-6 sm:p-8 text-white shadow-md relative overflow-hidden">
         <div className="relative z-10 flex flex-wrap items-center justify-between gap-6">
@@ -435,7 +441,7 @@ export default function AccountProfilePage() {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

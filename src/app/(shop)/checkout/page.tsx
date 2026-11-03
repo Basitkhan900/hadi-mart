@@ -11,6 +11,7 @@ import { pkr, type Address } from "@/lib/types";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripePaymentForm from "@/components/StripePaymentForm";
+import { motion, AnimatePresence } from "framer-motion";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -210,163 +211,195 @@ export default function CheckoutPage() {
       <div className="grid gap-8 lg:grid-cols-3">
         {/* Left: form */}
         <div className="space-y-6 lg:col-span-2">
-          {/* Step 1: Address */}
-          {step === "details" && (
-            <div className="card space-y-4">
-              <h2 className="font-display text-xl font-bold">Delivery Address</h2>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Full Name *</label>
-                  <input {...register("name")} placeholder="Ahmed Ali" className="input" />
-                  {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
-                </div>
-                <div>
-                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Phone *</label>
-                  <input {...register("phone")} placeholder="0300-1234567" className="input" />
-                  {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
-                </div>
-              </div>
-              <div>
-                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Email (optional)</label>
-                <input {...register("email")} type="email" placeholder="you@email.com" className="input" />
-                {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
-              </div>
-              <div>
-                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Street Address *</label>
-                <input {...register("street")} placeholder="House No., Street, Block" className="input" />
-                {errors.street && <p className="mt-1 text-xs text-red-500">{errors.street.message}</p>}
-              </div>
-              <div>
-                <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">City *</label>
-                <input {...register("city")} placeholder="Lahore" className="input" />
-                {errors.city && <p className="mt-1 text-xs text-red-500">{errors.city.message}</p>}
-              </div>
-              <button
-                onClick={handleSubmit(() => setStep("payment"))}
-                className="btn-emerald w-full"
+          <AnimatePresence mode="wait">
+            {/* Step 1: Address */}
+            {step === "details" && (
+              <motion.div
+                key="details"
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{ duration: 0.25 }}
+                className="card space-y-4"
               >
-                Continue to Payment
-              </button>
-            </div>
-          )}
-
-          {/* Step 2: Payment */}
-          {step === "payment" && (
-            <div className="card space-y-4">
-              <h2 className="font-display text-xl font-bold">Payment Method</h2>
-              <div className="space-y-3">
-                {PAYMENT_OPTIONS.map((opt) => (
-                  <label
-                    key={opt.id}
-                    className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition
-                      ${payment === opt.id ? "border-emerald bg-emerald/5" : "hover:bg-ink/5"}`}
-                  >
-                    <input
-                      type="radio"
-                      name="payment"
-                      value={opt.id}
-                      checked={payment === opt.id}
-                      onChange={() => setPayment(opt.id)}
-                      className="sr-only"
-                    />
-                    <span className={`${payment === opt.id ? "text-emerald" : "text-ink/50"}`}>{opt.icon}</span>
-                    <div className="flex-1">
-                      <p className="font-semibold">{opt.label}</p>
-                      <p className="text-xs text-ink/50">{opt.desc}</p>
-                    </div>
-                    {payment === opt.id && <Check size={18} className="text-emerald" />}
-                  </label>
-                ))}
-              </div>
-              {stripeError && (
-                <div className="flex items-center gap-2 rounded-xl bg-red-50 p-3 text-xs text-red-600 dark:bg-red-950/40 dark:text-red-400">
-                  <AlertCircle size={15} className="shrink-0" />
-                  <span>{stripeError}</span>
-                </div>
-              )}
-              <div className="flex gap-3">
-                <button onClick={() => setStep("details")} className="btn-outline flex-1">Back</button>
-                <button
-                  onClick={proceedToConfirm}
-                  disabled={stripeLoading}
-                  className="btn-emerald flex-1 flex items-center justify-center gap-2"
-                >
-                  {stripeLoading ? (
-                    <>
-                      <Loader2 size={16} className="animate-spin" />
-                      Setting up Payment...
-                    </>
-                  ) : (
-                    "Review Order"
-                  )}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 3: Confirm */}
-          {step === "confirm" && (
-            <div className="card space-y-5">
-              <h2 className="font-display text-xl font-bold">
-                {payment === "Card" ? "Pay & Complete Order" : "Review & Place Order"}
-              </h2>
-
-              {/* Address summary */}
-              <div className="rounded-2xl bg-ink/5 p-4 text-sm">
-                <p className="font-semibold">Delivering to:</p>
-                <p className="mt-1 text-ink/60">{getValues("name")} · {getValues("phone")}</p>
-                <p className="text-ink/60">{getValues("street")}, {getValues("city")}</p>
-              </div>
-
-              {/* Payment summary */}
-              <div className="rounded-2xl bg-ink/5 p-4 text-sm">
-                <p className="font-semibold">Payment Method:</p>
-                <p className="mt-1 text-ink/60">{PAYMENT_OPTIONS.find((o) => o.id === payment)?.label}</p>
-              </div>
-
-              {/* Items */}
-              <div className="space-y-3">
-                {lines.map(({ p: prod, qty }) => (
-                  <div key={prod!.id} className="flex items-center gap-3 text-sm">
-                    <img src={prod!.images[0]} alt="" className="h-12 w-10 rounded-xl object-cover" />
-                    <div className="flex-1">
-                      <p className="font-medium">{prod!.name}</p>
-                      <p className="text-ink/50">Qty: {qty}</p>
-                    </div>
-                    <p className="font-semibold">{pkr((prod!.salePrice ?? prod!.price) * qty)}</p>
+                <h2 className="font-display text-xl font-bold">Delivery Address</h2>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Full Name *</label>
+                    <input {...register("name")} placeholder="Ahmed Ali" className="input" />
+                    {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Phone *</label>
+                    <input {...register("phone")} placeholder="0300-1234567" className="input" />
+                    {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
+                  </div>
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Email (optional)</label>
+                  <input {...register("email")} type="email" placeholder="you@email.com" className="input" />
+                  {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">Street Address *</label>
+                  <input {...register("street")} placeholder="House No., Street, Block" className="input" />
+                  {errors.street && <p className="mt-1 text-xs text-red-500">{errors.street.message}</p>}
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink/40">City *</label>
+                  <input {...register("city")} placeholder="Lahore" className="input" />
+                  {errors.city && <p className="mt-1 text-xs text-red-500">{errors.city.message}</p>}
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleSubmit(() => setStep("payment"))}
+                  className="btn-emerald w-full cursor-pointer"
+                >
+                  Continue to Payment
+                </motion.button>
+              </motion.div>
+            )}
 
-              {/* Card Payment Form via Stripe Elements */}
-              {payment === "Card" && stripeClientSecret && stripePromise ? (
-                <div className="pt-2">
-                  <Elements
-                    stripe={stripePromise}
-                    options={{
-                      clientSecret: stripeClientSecret,
-                      appearance: {
-                        theme: "stripe",
-                      },
-                    }}
-                  >
-                    <StripePaymentForm
-                      total={total}
-                      onSuccess={(intentId) => placeOrder(getValues(), intentId)}
-                      onCancel={() => setStep("payment")}
-                    />
-                  </Elements>
+            {/* Step 2: Payment */}
+            {step === "payment" && (
+              <motion.div
+                key="payment"
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{ duration: 0.25 }}
+                className="card space-y-4"
+              >
+                <h2 className="font-display text-xl font-bold">Payment Method</h2>
+                <div className="space-y-3">
+                  {PAYMENT_OPTIONS.map((opt) => (
+                    <label
+                      key={opt.id}
+                      className={`flex cursor-pointer items-center gap-4 rounded-2xl border p-4 transition
+                        ${payment === opt.id ? "border-emerald bg-emerald/5" : "hover:bg-ink/5"}`}
+                    >
+                      <input
+                        type="radio"
+                        name="payment"
+                        value={opt.id}
+                        checked={payment === opt.id}
+                        onChange={() => setPayment(opt.id)}
+                        className="sr-only"
+                      />
+                      <span className={`${payment === opt.id ? "text-emerald" : "text-ink/50"}`}>{opt.icon}</span>
+                      <div className="flex-1">
+                        <p className="font-semibold">{opt.label}</p>
+                        <p className="text-xs text-ink/50">{opt.desc}</p>
+                      </div>
+                      {payment === opt.id && <Check size={18} className="text-emerald" />}
+                    </label>
+                  ))}
                 </div>
-              ) : (
+                {stripeError && (
+                  <div className="flex items-center gap-2 rounded-xl bg-red-50 p-3 text-xs text-red-600 dark:bg-red-950/40 dark:text-red-400">
+                    <AlertCircle size={15} className="shrink-0" />
+                    <span>{stripeError}</span>
+                  </div>
+                )}
                 <div className="flex gap-3">
-                  <button onClick={() => setStep("payment")} className="btn-outline flex-1">Back</button>
-                  <button onClick={handleSubmit((data) => placeOrder(data))} className="btn-emerald flex-1 gap-2">
-                    <Banknote size={18} /> Place Order
-                  </button>
+                  <button onClick={() => setStep("details")} className="btn-outline flex-1 cursor-pointer">Back</button>
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={proceedToConfirm}
+                    disabled={stripeLoading}
+                    className="btn-emerald flex-1 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {stripeLoading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        Setting up Payment...
+                      </>
+                    ) : (
+                      "Review Order"
+                    )}
+                  </motion.button>
                 </div>
-              )}
-            </div>
-          )}
+              </motion.div>
+            )}
+
+            {/* Step 3: Confirm */}
+            {step === "confirm" && (
+              <motion.div
+                key="confirm"
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{ duration: 0.25 }}
+                className="card space-y-5"
+              >
+                <h2 className="font-display text-xl font-bold">
+                  {payment === "Card" ? "Pay & Complete Order" : "Review & Place Order"}
+                </h2>
+
+                {/* Address summary */}
+                <div className="rounded-2xl bg-ink/5 p-4 text-sm">
+                  <p className="font-semibold">Delivering to:</p>
+                  <p className="mt-1 text-ink/60">{getValues("name")} · {getValues("phone")}</p>
+                  <p className="text-ink/60">{getValues("street")}, {getValues("city")}</p>
+                </div>
+
+                {/* Payment summary */}
+                <div className="rounded-2xl bg-ink/5 p-4 text-sm">
+                  <p className="font-semibold">Payment Method:</p>
+                  <p className="mt-1 text-ink/60">{PAYMENT_OPTIONS.find((o) => o.id === payment)?.label}</p>
+                </div>
+
+                {/* Items */}
+                <div className="space-y-3">
+                  {lines.map(({ p: prod, qty }) => (
+                    <div key={prod!.id} className="flex items-center gap-3 text-sm">
+                      <img src={prod!.images[0]} alt="" className="h-12 w-10 rounded-xl object-cover" />
+                      <div className="flex-1">
+                        <p className="font-medium">{prod!.name}</p>
+                        <p className="text-ink/50">Qty: {qty}</p>
+                      </div>
+                      <p className="font-semibold">{pkr((prod!.salePrice ?? prod!.price) * qty)}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Card Payment Form via Stripe Elements */}
+                {payment === "Card" && stripeClientSecret && stripePromise ? (
+                  <div className="pt-2">
+                    <Elements
+                      stripe={stripePromise}
+                      options={{
+                        clientSecret: stripeClientSecret,
+                        appearance: {
+                          theme: "stripe",
+                        },
+                      }}
+                    >
+                      <StripePaymentForm
+                        total={total}
+                        onSuccess={(intentId) => placeOrder(getValues(), intentId)}
+                        onCancel={() => setStep("payment")}
+                      />
+                    </Elements>
+                  </div>
+                ) : (
+                  <div className="flex gap-3">
+                    <button onClick={() => setStep("payment")} className="btn-outline flex-1 cursor-pointer">Back</button>
+                    <motion.button
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={handleSubmit((data) => placeOrder(data))}
+                      className="btn-emerald flex-1 gap-2 cursor-pointer flex items-center justify-center"
+                    >
+                      <Banknote size={18} /> Place Order
+                    </motion.button>
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Right: order summary */}

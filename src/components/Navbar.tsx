@@ -52,7 +52,7 @@ export default function Navbar() {
           </svg>
         </div>
 
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-6">
+        <div className="mx-auto flex max-w-7xl w-full items-center justify-between gap-2 sm:gap-6">
           {/* Brand Logo with Botanical Leaves */}
           <Link href="/" className="group flex items-center gap-2 shrink-0">
             {/* Left Leaf branch illustration */}
@@ -138,7 +138,7 @@ export default function Navbar() {
           </div>
 
           {/* Right Action Links: Account & Cart with Badge */}
-          <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-[#1E3926] dark:text-[#D8E6DB]">
+          <div className="flex items-center gap-2 sm:gap-6 text-xs sm:text-sm font-medium text-[#1E3926] dark:text-[#D8E6DB]">
             {/* Account */}
             <Link
               href={isLoggedIn ? "/account" : "/login"}
@@ -153,7 +153,7 @@ export default function Navbar() {
               ) : (
                 <User size={18} strokeWidth={1.8} />
               )}
-              <span>{isLoggedIn ? (name ? name.split(" ")[0] : "Profile") : "Account"}</span>
+              <span className="hidden sm:inline">{isLoggedIn ? (name ? name.split(" ")[0] : "Profile") : "Account"}</span>
             </Link>
 
             {/* Quick Admin Badge (Only visible when logged in as Store Admin) */}
@@ -181,6 +181,7 @@ export default function Navbar() {
                 </span>
               </div>
               <span className="hidden sm:inline">Cart</span>
+
             </button>
 
             {/* Wishlist Icon */}

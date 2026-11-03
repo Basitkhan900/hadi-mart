@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import { categories } from "@/lib/db";
 import { useCatalog } from "@/lib/store";
 import { SlidersHorizontal, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type SortKey = "popular" | "newest" | "price-asc" | "price-desc";
 
@@ -31,17 +32,26 @@ function ShopContent() {
 
   const filtered = useMemo(() => {
     let list = products;
-    if (selectedCat) list = list.filter((p) => {
-      const cat = categories.find((c) => c.id === p.categoryId);
-      return cat?.slug === selectedCat;
-    });
+    if (selectedCat)
+      list = list.filter((p) => {
+        const cat = categories.find((c) => c.id === p.categoryId);
+        return cat?.slug === selectedCat;
+      });
     if (onSale) list = list.filter((p) => !!p.salePrice);
     list = list.filter((p) => (p.salePrice ?? p.price) <= maxPrice);
     switch (sort) {
-      case "popular":    list = [...list].sort((a, b) => b.sold - a.sold); break;
-      case "newest":     list = [...list].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)); break;
-      case "price-asc":  list = [...list].sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price)); break;
-      case "price-desc": list = [...list].sort((a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price)); break;
+      case "popular":
+        list = [...list].sort((a, b) => b.sold - a.sold);
+        break;
+      case "newest":
+        list = [...list].sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt));
+        break;
+      case "price-asc":
+        list = [...list].sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price));
+        break;
+      case "price-desc":
+        list = [...list].sort((a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price));
+        break;
     }
     return list;
   }, [products, selectedCat, onSale, maxPrice, sort]);
@@ -52,12 +62,19 @@ function ShopContent() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 md:px-6">
       {/* Page header */}
-      <div className="mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="mb-8"
+      >
         <h1 className="font-display text-4xl font-extrabold">
           {activeCat ? activeCat.name : onSale ? "Sale" : "All Products"}
         </h1>
-        <p className="mt-1 text-ink/50">{filtered.length} product{filtered.length !== 1 ? "s" : ""}</p>
-      </div>
+        <p className="mt-1 text-ink/50">
+          {filtered.length} product{filtered.length !== 1 ? "s" : ""}
+        </p>
+      </motion.div>
 
       <div className="flex gap-8">
         {/* Sidebar filters — desktop */}
@@ -68,7 +85,9 @@ function ShopContent() {
             <div className="space-y-1">
               <button
                 onClick={() => setSelectedCat("")}
-                className={`w-full rounded-xl px-3 py-2 text-left text-sm transition hover:bg-ink/5 ${!selectedCat ? "bg-ink/5 font-semibold" : ""}`}
+                className={`w-full rounded-xl px-3 py-2 text-left text-sm transition hover:bg-ink/5 cursor-pointer ${
+                  !selectedCat ? "bg-ink/5 font-semibold" : ""
+                }`}
               >
                 All Products
               </button>
@@ -76,7 +95,9 @@ function ShopContent() {
                 <button
                   key={c.id}
                   onClick={() => setSelectedCat(c.slug === selectedCat ? "" : c.slug)}
-                  className={`w-full rounded-xl px-3 py-2 text-left text-sm transition hover:bg-ink/5 ${selectedCat === c.slug ? "bg-emerald/10 font-semibold text-emerald" : ""}`}
+                  className={`w-full rounded-xl px-3 py-2 text-left text-sm transition hover:bg-ink/5 cursor-pointer ${
+                    selectedCat === c.slug ? "bg-emerald/10 font-semibold text-emerald" : ""
+                  }`}
                 >
                   {c.icon} {c.name}
                 </button>
@@ -94,7 +115,7 @@ function ShopContent() {
               step={500}
               value={maxPrice}
               onChange={(e) => setMaxPrice(+e.target.value)}
-              className="w-full accent-emerald"
+              className="w-full accent-emerald cursor-pointer"
             />
             <div className="mt-1 flex justify-between text-xs text-ink/50">
               <span>Rs. 500</span>
@@ -109,21 +130,34 @@ function ShopContent() {
               <span className="text-sm">On Sale only</span>
               <div
                 onClick={() => setOnSale((o) => !o)}
-                className={`relative h-5 w-9 rounded-full transition ${onSale ? "bg-emerald" : "bg-ink/20"}`}
+                className={`relative h-5 w-9 rounded-full transition ${
+                  onSale ? "bg-emerald" : "bg-ink/20"
+                }`}
               >
-                <span className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${onSale ? "translate-x-4" : "translate-x-0.5"}`} />
+                <span
+                  className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                    onSale ? "translate-x-4" : "translate-x-0.5"
+                  }`}
+                />
               </div>
             </label>
           </div>
 
           {/* Clear */}
           {activeFiltersCount > 0 && (
-            <button
-              onClick={() => { setSelectedCat(""); setOnSale(false); setMaxPrice(50000); }}
-              className="flex items-center gap-1.5 text-sm text-red-500 hover:underline"
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                setSelectedCat("");
+                setOnSale(false);
+                setMaxPrice(50000);
+              }}
+              className="flex items-center gap-1.5 text-sm text-red-500 hover:underline cursor-pointer"
             >
               <X size={14} /> Clear filters
-            </button>
+            </motion.button>
           )}
         </aside>
 
@@ -132,9 +166,10 @@ function ShopContent() {
           {/* Toolbar */}
           <div className="mb-6 flex items-center justify-between gap-4">
             {/* Mobile filter button */}
-            <button
+            <motion.button
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowFilters(true)}
-              className="flex items-center gap-2 rounded-full border px-4 py-2 text-sm md:hidden"
+              className="flex items-center gap-2 rounded-full border px-4 py-2 text-sm md:hidden cursor-pointer"
             >
               <SlidersHorizontal size={15} />
               Filters
@@ -143,114 +178,204 @@ function ShopContent() {
                   {activeFiltersCount}
                 </span>
               )}
-            </button>
+            </motion.button>
 
             {/* Sort */}
             <div className="relative ml-auto">
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
-                className="appearance-none rounded-full border bg-transparent py-2 pl-4 pr-9 text-sm outline-none transition hover:bg-ink/5"
+                className="appearance-none rounded-full border bg-transparent py-2 pl-4 pr-9 text-sm outline-none transition hover:bg-ink/5 cursor-pointer"
               >
                 <option value="popular">Most Popular</option>
                 <option value="newest">Newest</option>
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
               </select>
-              <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink/40" />
+              <ChevronDown
+                size={14}
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink/40"
+              />
             </div>
           </div>
 
           {/* Active filter chips */}
           {activeFiltersCount > 0 && (
             <div className="mb-4 flex flex-wrap gap-2">
-              {activeCat && (
-                <span className="flex items-center gap-1.5 rounded-full bg-emerald/10 px-3 py-1 text-xs font-semibold text-emerald">
-                  {activeCat.icon} {activeCat.name}
-                  <button onClick={() => setSelectedCat("")}><X size={12} /></button>
-                </span>
-              )}
-              {onSale && (
-                <span className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
-                  🔥 Sale
-                  <button onClick={() => setOnSale(false)}><X size={12} /></button>
-                </span>
-              )}
-              {maxPrice < 50000 && (
-                <span className="flex items-center gap-1.5 rounded-full bg-ink/10 px-3 py-1 text-xs font-semibold">
-                  Up to Rs. {maxPrice.toLocaleString()}
-                  <button onClick={() => setMaxPrice(50000)}><X size={12} /></button>
-                </span>
-              )}
+              <AnimatePresence>
+                {activeCat && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center gap-1.5 rounded-full bg-emerald/10 px-3 py-1 text-xs font-semibold text-emerald"
+                  >
+                    {activeCat.icon} {activeCat.name}
+                    <button onClick={() => setSelectedCat("")} className="cursor-pointer">
+                      <X size={12} />
+                    </button>
+                  </motion.span>
+                )}
+                {onSale && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700"
+                  >
+                    🔥 Sale
+                    <button onClick={() => setOnSale(false)} className="cursor-pointer">
+                      <X size={12} />
+                    </button>
+                  </motion.span>
+                )}
+                {maxPrice < 50000 && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    className="flex items-center gap-1.5 rounded-full bg-ink/10 px-3 py-1 text-xs font-semibold"
+                  >
+                    Up to Rs. {maxPrice.toLocaleString()}
+                    <button onClick={() => setMaxPrice(50000)} className="cursor-pointer">
+                      <X size={12} />
+                    </button>
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
           )}
 
           {/* Grid */}
           {filtered.length === 0 ? (
-            <div className="flex flex-col items-center gap-4 py-20 text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center gap-4 py-20 text-center"
+            >
               <p className="text-4xl">🔍</p>
               <p className="font-display text-2xl font-bold">No products found</p>
               <p className="text-ink/50">Try adjusting your filters</p>
               <button
-                onClick={() => { setSelectedCat(""); setOnSale(false); setMaxPrice(50000); }}
-                className="btn-emerald"
+                onClick={() => {
+                  setSelectedCat("");
+                  setOnSale(false);
+                  setMaxPrice(50000);
+                }}
+                className="btn-emerald cursor-pointer"
               >
                 Clear all filters
               </button>
-            </div>
+            </motion.div>
           ) : (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-              {filtered.map((p) => <ProductCard key={p.id} p={p} />)}
-            </div>
+            <motion.div
+              layout
+              className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4"
+            >
+              {filtered.map((p) => (
+                <ProductCard key={p.id} p={p} />
+              ))}
+            </motion.div>
           )}
         </div>
       </div>
 
-      {/* Mobile filter drawer */}
-      {showFilters && (
-        <div className="fixed inset-0 z-50 bg-black/50" onClick={() => setShowFilters(false)}>
-          <div
-            className="absolute bottom-0 left-0 right-0 max-h-[80vh] overflow-y-auto rounded-t-4xl bg-paper p-6 dark:bg-[#0a0f0d]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="font-display text-xl font-extrabold">Filters</h3>
-              <button onClick={() => setShowFilters(false)}><X size={20} /></button>
-            </div>
+      {/* Mobile filter drawer with Framer Motion slide */}
+      <AnimatePresence>
+        {showFilters && (
+          <div className="fixed inset-0 z-50">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-xs"
+              onClick={() => setShowFilters(false)}
+            />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 280 }}
+              className="absolute bottom-0 left-0 right-0 max-h-[80vh] overflow-y-auto rounded-t-4xl bg-paper p-6 dark:bg-[#0a0f0d] z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="font-display text-xl font-extrabold">Filters</h3>
+                <button onClick={() => setShowFilters(false)} className="cursor-pointer">
+                  <X size={20} />
+                </button>
+              </div>
 
-            <div className="space-y-6">
-              <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-ink/30">Category</p>
-                <div className="flex flex-wrap gap-2">
-                  <button onClick={() => setSelectedCat("")} className={`rounded-full px-4 py-2 text-sm border ${!selectedCat ? "bg-ink text-white border-ink" : ""}`}>All</button>
-                  {categories.map((c) => (
-                    <button key={c.id} onClick={() => setSelectedCat(c.slug === selectedCat ? "" : c.slug)}
-                      className={`rounded-full px-4 py-2 text-sm border ${selectedCat === c.slug ? "bg-emerald text-white border-emerald" : ""}`}>
-                      {c.icon} {c.name}
+              <div className="space-y-6">
+                <div>
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-ink/30">
+                    Category
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={() => setSelectedCat("")}
+                      className={`rounded-full px-4 py-2 text-sm border cursor-pointer ${
+                        !selectedCat ? "bg-ink text-white border-ink" : ""
+                      }`}
+                    >
+                      All
                     </button>
-                  ))}
+                    {categories.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => setSelectedCat(c.slug === selectedCat ? "" : c.slug)}
+                        className={`rounded-full px-4 py-2 text-sm border cursor-pointer ${
+                          selectedCat === c.slug ? "bg-emerald text-white border-emerald" : ""
+                        }`}
+                      >
+                        {c.icon} {c.name}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-ink/30">Max Price: Rs. {maxPrice.toLocaleString()}</p>
-                <input type="range" min={500} max={50000} step={500} value={maxPrice} onChange={(e) => setMaxPrice(+e.target.value)} className="w-full accent-emerald" />
-              </div>
-
-              <label className="flex cursor-pointer items-center justify-between">
-                <span className="font-medium">On Sale only</span>
-                <div onClick={() => setOnSale((o) => !o)} className={`relative h-6 w-11 rounded-full transition ${onSale ? "bg-emerald" : "bg-ink/20"}`}>
-                  <span className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform ${onSale ? "translate-x-6" : "translate-x-1"}`} />
+                <div>
+                  <p className="mb-3 text-xs font-bold uppercase tracking-widest text-ink/30">
+                    Max Price: Rs. {maxPrice.toLocaleString()}
+                  </p>
+                  <input
+                    type="range"
+                    min={500}
+                    max={50000}
+                    step={500}
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(+e.target.value)}
+                    className="w-full accent-emerald"
+                  />
                 </div>
-              </label>
 
-              <button onClick={() => setShowFilters(false)} className="btn-emerald w-full">
-                Show {filtered.length} product{filtered.length !== 1 ? "s" : ""}
-              </button>
-            </div>
+                <label className="flex cursor-pointer items-center justify-between">
+                  <span className="font-medium">On Sale only</span>
+                  <div
+                    onClick={() => setOnSale((o) => !o)}
+                    className={`relative h-6 w-11 rounded-full transition ${
+                      onSale ? "bg-emerald" : "bg-ink/20"
+                    }`}
+                  >
+                    <span
+                      className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                        onSale ? "translate-x-6" : "translate-x-1"
+                      }`}
+                    />
+                  </div>
+                </label>
+
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="btn-emerald w-full cursor-pointer"
+                >
+                  Show {filtered.length} product{filtered.length !== 1 ? "s" : ""}
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -262,4 +387,3 @@ export default function ShopPage() {
     </Suspense>
   );
 }
-
