@@ -29,8 +29,8 @@
       "salePrice": 5000,
       "stock": 20,
       "images": [
-        "/uploads/PROD-HOLDER-JAPAN-SKINCARE1_1793604797552.webp",
-        "/uploads/PROD-HOLDER-JAPAN-SKINCARE1_1793604797552.webp"
+        "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -48,8 +48,8 @@
       "salePrice": 2999,
       "stock": 20,
       "images": [
-        "/uploads/missanonymissm-skincare-471732_1793603862841.jpg",
-        "/uploads/missanonymissm-skincare-471732_1793603862841.jpg"
+        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -67,8 +67,8 @@
       "salePrice": 1999,
       "stock": 20,
       "images": [
-        "/uploads/javaistan-ai-generated-8955575_1793603743784.jpg",
-        "/uploads/javaistan-ai-generated-8955575_1793603743784.jpg"
+        "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -86,8 +86,8 @@
       "salePrice": 9999,
       "stock": 20,
       "images": [
-        "/uploads/stevepb-dumbbells-2465478_1920_1793603567649.jpg",
-        "/uploads/stevepb-dumbbells-2465478_1920_1793603567649.jpg"
+        "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -105,8 +105,8 @@
       "salePrice": 13000,
       "stock": 20,
       "images": [
-        "/uploads/yogendras31-cricket-5348883_19_1793603397655.jpg",
-        "/uploads/yogendras31-cricket-5348883_19_1793603397655.jpg"
+        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -124,8 +124,8 @@
       "salePrice": 2000,
       "stock": 20,
       "images": [
-        "/uploads/bessi-tennis-1381230_1920_1793599401445.jpg",
-        "/uploads/bessi-tennis-1381230_1920_1793599401445.jpg"
+        "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -143,8 +143,8 @@
       "salePrice": 5500,
       "stock": 22,
       "images": [
-        "/uploads/stux-football-1419954_1920_1793599322765.jpg",
-        "/uploads/stux-football-1419954_1920_1793599322765.jpg"
+        "https://images.unsplash.com/photo-1614632537190-23e4ee490de7?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1614632537190-23e4ee490de7?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -162,8 +162,8 @@
       "salePrice": 2599,
       "stock": 14,
       "images": [
-        "/uploads/jillwellington-apples-2906457__1793599057408.jpg",
-        "/uploads/jillwellington-apples-2906457__1793599057408.jpg"
+        "https://images.unsplash.com/photo-1490885578174-acda8905c2c6?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1490885578174-acda8905c2c6?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -181,8 +181,8 @@
       "salePrice": 4599,
       "stock": 26,
       "images": [
-        "/uploads/gom_su_cuong_duyen-vases-10211_1793597204045.jpg",
-        "/uploads/gom_su_cuong_duyen-vases-10211_1793597204045.jpg"
+        "https://images.unsplash.com/photo-1578500351865-d6a0b1403c5c?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1578500351865-d6a0b1403c5c?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -200,8 +200,8 @@
       "salePrice": 1299,
       "stock": 9,
       "images": [
-        "/uploads/stocksnap-white-2563976_1920_1793597100934.jpg",
-        "/uploads/stocksnap-white-2563976_1920_1793597100934.jpg"
+        "https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,
@@ -219,8 +219,8 @@
       "salePrice": 899,
       "stock": 4,
       "images": [
-        "/uploads/milivigerova-pots-716579_1920_1793551102662.jpg",
-        "/uploads/milivigerova-pots-716579_1920_1793551102662.jpg"
+        "https://images.unsplash.com/photo-1463320726281-696a485928c7?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1463320726281-696a485928c7?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,

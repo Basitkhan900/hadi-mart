@@ -14,7 +14,7 @@ export const categories: Category[] = [
     id: "c6",
     name: "Sports & Fitness",
     slug: "sports",
-    image: "https://images.unsplash.com/photo-1519766304817-4f37bda74a29?w=800&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=80",
     icon: "⚽",
   },
   {

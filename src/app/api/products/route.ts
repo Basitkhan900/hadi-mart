@@ -3,6 +3,35 @@ import { getProducts, addProduct, updateProduct, deleteProduct, clearAllProducts
 import type { Product } from "@/lib/types";
 import { sendNewProductNotification } from "@/lib/mailer";
 
+// ─── Fallback images per category (used when a product has a broken/blob URL) ─
+const CATEGORY_FALLBACKS: Record<string, string> = {
+  c1: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&q=80", // Fashion
+  c2: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80", // Tech
+  c3: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=800&auto=format&fit=crop&q=80", // Home & Decor
+  c4: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80", // Skincare
+  c5: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=800&auto=format&fit=crop&q=80", // Grocery
+  c6: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=80", // Sports
+};
+const GENERIC_FALLBACK =
+  "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80";
+
+function isBrokenUrl(url: string): boolean {
+  if (!url) return true;
+  if (url.startsWith("blob:")) return true;
+  if (url.startsWith("data:")) return true;
+  return false;
+}
+
+function sanitizeProduct(p: Product): Product {
+  const fallback = CATEGORY_FALLBACKS[p.categoryId] ?? GENERIC_FALLBACK;
+  const images = (p.images ?? []).map((img) =>
+    isBrokenUrl(img) ? fallback : img
+  );
+  // Ensure at least 2 images
+  while (images.length < 2) images.push(fallback);
+  return { ...p, images };
+}
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q")?.toLowerCase() ?? "";
@@ -18,7 +47,8 @@ export async function GET(req: Request) {
     list = list.filter((p) => p.categoryId === cat);
   }
 
-  return NextResponse.json(list);
+  // Sanitize any blob: or broken image URLs before sending to the client
+  return NextResponse.json(list.map(sanitizeProduct));
 }
 
 export async function POST(req: Request) {

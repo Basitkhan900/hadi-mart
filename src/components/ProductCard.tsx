@@ -15,10 +15,19 @@ interface Props {
 export default function ProductCard({ p, className = "" }: Props) {
   const [hover, setHover] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const add = useCart((s) => s.add);
   const { ids, toggle } = useWishlist();
   const liked = ids.includes(p.id);
   const discount = p.salePrice ? Math.round(((p.price - p.salePrice) / p.price) * 100) : 0;
+
+  // Fallback image used when the product image fails to load
+  const FALLBACK =
+    "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&auto=format&fit=crop&q=80";
+
+  const imgSrc = imgError
+    ? FALLBACK
+    : p.images[hover && p.images[1] ? 1 : 0] || FALLBACK;
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,8 +52,9 @@ export default function ProductCard({ p, className = "" }: Props) {
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-[#F6F5F0] dark:bg-stone-900">
           <Link href={`/product/${p.slug}`} className="block h-full w-full">
             <img
-              src={p.images[hover ? 1 : 0]}
+              src={imgSrc}
               alt={p.name}
+              onError={() => setImgError(true)}
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
             />
           </Link>
