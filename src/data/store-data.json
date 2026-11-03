@@ -10,8 +10,8 @@
       "salePrice": 1599,
       "stock": 20,
       "images": [
-        "blob:http://localhost:3000/5022442b-299a-4bdc-a88c-7e55c4b3a646",
-        "blob:http://localhost:3000/5022442b-299a-4bdc-a88c-7e55c4b3a646"
+        "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1608248597359-597554909f27?w=800&auto=format&fit=crop&q=80"
       ],
       "rating": 5,
       "reviewCount": 0,

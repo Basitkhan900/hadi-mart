@@ -34,7 +34,26 @@ export default function Navbar() {
         .slice(0, 5)
     : [];
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
+
   return (
+    <>
+    {/* Backdrop overlay — closes menu on tap outside */}
+    {mobileMenuOpen && (
+      <div
+        className="md:hidden fixed inset-0 z-30 bg-black/30"
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
+      />
+    )}
     <header className="sticky top-0 z-50 w-full shadow-xs">
       {/* ─── Top Tier (Exact Match to New Reference Image) ─── */}
       <div className="relative bg-[#F4F6F1] px-4 py-2.5 sm:py-3 border-b border-[#E0E6DA] transition-colors dark:bg-[#131C17] dark:border-[#223028]">
@@ -265,11 +284,11 @@ export default function Navbar() {
 
       {/* ─── Mobile Slide-Down Menu ─── */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+        className={`md:hidden fixed left-0 right-0 top-[var(--navbar-height,112px)] z-40 transition-all duration-300 ease-in-out overflow-y-auto max-h-[calc(100dvh-112px)] ${
+          mobileMenuOpen ? "translate-y-0 opacity-100 pointer-events-auto" : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="bg-[#F4F6F1] border-b border-[#D8DFD0] dark:bg-[#131C17] dark:border-[#223028]">
+        <div className="bg-[#F4F6F1] border-b border-[#D8DFD0] dark:bg-[#131C17] dark:border-[#223028] shadow-xl">
           {/* Nav Links */}
           <nav className="px-5 pt-4 pb-2 flex flex-col text-sm font-semibold text-[#1E3926] dark:text-[#D4E7DC]">
             {[
@@ -337,5 +356,6 @@ export default function Navbar() {
         </div>
       </div>
     </header>
+    </>
   );
 }
